@@ -43,15 +43,20 @@ function ListeProduits() {
       }
     })
 
+    p.tags.forEach(function (t) {
+      if (t.toLowerCase().includes(mot)) {
+        ok = true
+      }
+    })
+
     return ok
   })
 
   return (
-    <section>
-      <h2 className="h5 mb-3">Nos plats ({liste.length})</h2>
+    <section id="menu">
       <div className="row">
         {liste.length === 0 && (
-          <p className="col-12">Aucun produit ne correspond aux filtres.</p>
+          <p className="col-12 text-muted">Aucun produit ne correspond aux filtres.</p>
         )}
         {liste.map(function (produit) {
           return <BlocProduit key={produit.id} produit={produit} />

@@ -1,15 +1,11 @@
-import Cart from './Cart.jsx'
-
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-dark navbar-restaurant py-2">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <span className="navbar-brand mb-0 h1 fs-5">Mon Restaurant</span>
+        <a className="nav-link text-white px-0" href="#menu">
           Menu
         </a>
-        <div className="ms-auto">
-          <Cart />
-        </div>
       </div>
     </nav>
   )

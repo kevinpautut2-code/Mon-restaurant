@@ -10,14 +10,14 @@ function App() {
   return (
     <FiltreProvider>
       <PanierProvider>
-        <Nav />
         <Header />
-        <main className="container pb-4">
-          <div className="row">
-            <div className="col-md-3 mb-3">
+        <Nav />
+        <main className="container-fluid layout-main pb-4">
+          <div className="row g-4">
+            <div className="col-lg-3">
               <Sidebar />
             </div>
-            <div className="col-md-9">
+            <div className="col-lg-9">
               <ListeProduits />
             </div>
           </div>

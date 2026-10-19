@@ -3,6 +3,16 @@ import SidebarBloc from './SidebarBloc.jsx'
 import Button from './Button.jsx'
 import produits from '../data/produits.js'
 
+const ORDRE_CATEGORIES = [
+  'Burger',
+  'Pizza',
+  'Kebab',
+  'Poulet frit',
+  'Accompagnements',
+  'Desserts',
+  'Boissons',
+]
+
 function Sidebar() {
   const {
     recherche,
@@ -16,18 +26,24 @@ function Sidebar() {
     toutEffacer,
   } = useFiltres()
 
-  const categories = []
+  const categoriesTrouvees = []
   const tags = []
 
   produits.forEach(function (p) {
-    if (categories.indexOf(p.categorie) === -1) {
-      categories.push(p.categorie)
+    if (categoriesTrouvees.indexOf(p.categorie) === -1) {
+      categoriesTrouvees.push(p.categorie)
     }
     p.tags.forEach(function (t) {
       if (tags.indexOf(t) === -1) {
         tags.push(t)
       }
     })
+  })
+
+  tags.sort()
+
+  const categories = ORDRE_CATEGORIES.filter(function (c) {
+    return categoriesTrouvees.indexOf(c) !== -1
   })
 
   function handleRecherche(e) {
@@ -55,45 +71,53 @@ function Sidebar() {
   }
 
   return (
-    <aside className="bg-white border rounded p-3">
-      <h2 className="h5 mb-3">Filtres</h2>
-
-      <label className="form-label" htmlFor="recherche">
+    <aside className="sidebar-panel">
+      <label className="visually-hidden" htmlFor="recherche">
         Recherche
       </label>
       <input
         id="recherche"
-        type="text"
-        className="form-control form-control-sm mb-3"
-        placeholder="nom, catégorie, mot clé..."
+        type="search"
+        className="form-control form-control-sm sidebar-search mb-3"
+        placeholder="Rechercher un plat..."
         value={recherche}
         onChange={handleRecherche}
       />
 
-      <label className="form-label" htmlFor="prix">
-        Prix max (€)
-      </label>
-      <input
-        id="prix"
-        type="number"
-        min="0"
-        step="0.5"
-        className="form-control form-control-sm mb-3"
-        placeholder="ex: 12"
-        value={prixMax}
-        onChange={handlePrix}
-      />
-
       <SidebarBloc
-        titre="Catégories"
+        titre="Catégorie"
         items={categories}
         filtreActif={categorie}
         onChoisir={choisirCategorie}
+        variant="liste"
       />
 
-      <SidebarBloc titre="Tags" items={tags} filtreActif={tag} onChoisir={choisirTag} />
+      <label className="form-label small text-muted mb-1" htmlFor="prix">
+        Filtrer par prix
+      </label>
+      <div className="input-group input-group-sm mb-3">
+        <span className="input-group-text">€</span>
+        <input
+          id="prix"
+          type="number"
+          min="0"
+          step="0.5"
+          className="form-control"
+          placeholder="Filtrer par prix"
+          value={prixMax}
+          onChange={handlePrix}
+        />
+      </div>
 
-      <Button className="btn-secondary btn-sm w-100" onClick={toutEffacer}>
+      <SidebarBloc
+        titre="Ingrédients / tags"
+        items={tags}
+        filtreActif={tag}
+        onChoisir={choisirTag}
+        variant="tags"
+      />
+
+      <Button className="btn-outline-secondary btn-sm w-100" onClick={toutEffacer}>
         Tout effacer
       </Button>
     </aside>

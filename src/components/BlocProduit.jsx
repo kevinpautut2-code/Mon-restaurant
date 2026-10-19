@@ -7,30 +7,40 @@ function BlocProduit({ produit }) {
   const { ajouter, retirer } = usePanier()
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3">
-      <div className="card h-100 shadow-sm">
-        <img src={produit.image} className="card-img-top" alt={produit.titre} />
-        <div className="card-body d-flex flex-column">
-          <h3 className="card-title h5">{produit.titre}</h3>
-          <p className="text-muted mb-2">{produit.prix.toFixed(2)} €</p>
-          <p className="card-text small flex-grow-1">{produit.texte}</p>
+    <div className="col-sm-6 col-lg-4 mb-4">
+      <article className="card produit-card h-100 border">
+        <div className="produit-image-wrap">
+          <img
+            src={produit.image}
+            className="card-img-top produit-image"
+            alt={produit.titre}
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="card-body d-flex flex-column pt-3">
+          <div className="d-flex justify-content-between align-items-baseline mb-2">
+            <h3 className="card-title h6 mb-0 fw-bold">{produit.titre}</h3>
+            <span className="produit-prix fw-bold">{produit.prix} €</span>
+          </div>
 
-          <div className="mb-2">
+          <div className="mb-3">
             <button
               type="button"
-              className="btn btn-outline-primary btn-sm me-1 mb-1"
+              className="tag-produit me-1 mb-1"
               onClick={function () {
                 setCategorie(produit.categorie)
               }}
             >
               {produit.categorie}
             </button>
-            {produit.tags.map(function (t, i) {
+            {produit.tags.map(function (t) {
               return (
                 <button
                   type="button"
-                  key={i}
-                  className="btn btn-outline-secondary btn-sm me-1 mb-1"
+                  key={t}
+                  className="tag-produit me-1 mb-1"
                   onClick={function () {
                     setTag(t)
                   }}
@@ -41,14 +51,14 @@ function BlocProduit({ produit }) {
             })}
           </div>
 
-          <div className="d-flex gap-2 mt-auto">
+          <div className="mt-auto d-grid gap-2">
             <Button
-              className="btn-success btn-sm flex-grow-1"
+              className="btn-outline-primary btn-sm w-100"
               onClick={function () {
                 ajouter(produit)
               }}
             >
-              Ajouter
+              Ajouter au panier
             </Button>
             <Button
               className="btn-outline-danger btn-sm"
@@ -56,11 +66,11 @@ function BlocProduit({ produit }) {
                 retirer(produit.id)
               }}
             >
-              Retirer
+              Retirer du panier
             </Button>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   )
 }

@@ -1,7 +1,10 @@
 function Footer() {
   return (
-    <footer className="bg-dark text-white mt-4 py-3">
-      <p className="text-center mb-0">
+    <footer
+      className="site-footer d-flex align-items-end justify-content-center"
+      style={{ backgroundImage: 'url(/bg_footer.jpg)' }}
+    >
+      <p className="footer-copy mb-0">
         Copyright &copy; {new Date().getFullYear()} — Mon Restaurant
       </p>
     </footer>

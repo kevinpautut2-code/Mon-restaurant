@@ -1,10 +1,15 @@
+import Cart from './Cart.jsx'
+
 function Header() {
   return (
-    <header className="bg-white border-bottom py-4 mb-3">
-      <div className="container text-center">
-        <h1 className="h2 mb-1">Chez Marco</h1>
-        <p className="text-muted mb-0">Carte du midi — commande en ligne</p>
+    <header
+      className="hero-header d-flex align-items-center justify-content-center"
+      style={{ backgroundImage: 'url(/bg_header.jpg)' }}
+    >
+      <div className="hero-cart">
+        <Cart variant="hero" />
       </div>
+      <h1 className="hero-title mb-0">Mon Restaurant</h1>
     </header>
   )
 }
